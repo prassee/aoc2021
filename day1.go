@@ -38,7 +38,9 @@ func part2() {
 		log.Fatal("cannot find input file ", err.Error())
 	}
 	reader := bufio.NewScanner(file)
-	reducer := &Reducer{}
+	reducer := &Reducer{
+		size: 3,
+	}
 	var prevValue = 0
 	var increments = 0
 	for reader.Scan() {
@@ -56,10 +58,11 @@ func part2() {
 
 type Reducer struct {
 	window []int
+	size   int
 }
 
 func (wind *Reducer) add(a int) {
-	if len(wind.window) == 3 {
+	if len(wind.window) == wind.size {
 		tail := wind.window[1:]
 		wind.window = append(tail, a)
 	} else {
@@ -68,7 +71,7 @@ func (wind *Reducer) add(a int) {
 }
 
 func (wind *Reducer) reduce() (sum int) {
-	if len(wind.window) == 3 {
+	if len(wind.window) == wind.size {
 		for _, v := range wind.window {
 			sum = sum + v
 		}
