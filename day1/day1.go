@@ -1,7 +1,7 @@
 /*
 https://adventofcode.com/2021/day/1
 */
-package main
+package day1
 
 import (
 	"bufio"
@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-func part1() {
+func Part1() {
 	file, err := os.Open("day1-input.txt")
 	if err != nil {
 		log.Fatal("cannot find input file ", err.Error())
@@ -32,7 +32,7 @@ func part1() {
 /*
 same as above but introduces Reducer Struct for the sliding window
 */
-func part2() {
+func Part2() {
 	file, err := os.Open("day1-input.txt")
 	if err != nil {
 		log.Fatal("cannot find input file ", err.Error())
