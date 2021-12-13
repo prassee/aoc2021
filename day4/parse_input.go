@@ -131,19 +131,33 @@ func (grid *BingoGrid) boardSum() (sum int) {
 }
 
 type BingoBoard struct {
-	draws []int
-	grids []*BingoGrid
+	draws, bingoed []int
+	grids          []*BingoGrid
 }
 
-func (b *BingoBoard) markNum(x int) (isfilled bool, sum int) {
+func (b *BingoBoard) markDrawOnBoards(x int) (isfilled bool, sum []int) {
+	sum = []int{}
+	isfilled = false
 	for i, v := range b.grids {
-		v.markOnGrid(x)
-		log.Printf("after marking %v on %v grid looks like %v ", x, i, v.marked)
-		isBingo := v.isBingo()
-		if isBingo {
-			log.Printf("grid %v  \n marked %v \n", v.grid, v.marked)
-			return true, v.boardSum()
+		if !b.isBingoed(i) {
+			v.markOnGrid(x)
+			if v.isBingo() {
+				log.Printf("for draw %v board  index %v value %v", x, i, v.marked)
+				b.bingoed = append(b.bingoed, i)
+				sum = append(sum, v.boardSum())
+				isfilled = isfilled || true
+				// return true, v.boardSum()
+			}
 		}
 	}
-	return false, sum
+	return isfilled, sum
+}
+
+func (b BingoBoard) isBingoed(x int) bool {
+	for i := range b.bingoed {
+		if b.bingoed[i] == x {
+			return true
+		}
+	}
+	return false
 }
