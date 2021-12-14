@@ -119,7 +119,6 @@ func (grid *BingoGrid) isBingo() bool {
 }
 
 func (grid *BingoGrid) boardSum() (sum int) {
-	sum = 0
 	for i := 0; i < grid.gridSize; i++ {
 		for j := 0; j < grid.gridSize; j++ {
 			if grid.grid[i][j] != grid.marked[i][j] {
@@ -146,7 +145,6 @@ func (b *BingoBoard) markDrawOnBoards(x int) (isfilled bool, sum []int) {
 				b.bingoed = append(b.bingoed, i)
 				sum = append(sum, v.boardSum())
 				isfilled = isfilled || true
-				// return true, v.boardSum()
 			}
 		}
 	}
