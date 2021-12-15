@@ -1,3 +1,6 @@
+/*
+https://adventofcode.com/2021/day/6
+*/
 package day6
 
 import (
